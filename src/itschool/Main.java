@@ -6,13 +6,11 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-/*
         TwoDimensionalArray_1();
         TwoDimensionalArray_2();
         TwoDimensionalArray_3();
-*/
         TwoDimensionalArraysCompare();
-/*
+
         ThreeDimensionalArray_1();
         ThreeDimensionalArray_2();
 
@@ -33,7 +31,6 @@ public class Main {
 
         Homework_Example_1();
         Homework_Example_2();
-        */
     }
 
     private static Scanner scanner = new Scanner(System.in);
