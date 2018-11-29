@@ -26,6 +26,7 @@ public class Main {
 
         LibraryExample();
 
+        StringSpit();
         StringCompare_1();
         StringCompare_2();
 
@@ -113,17 +114,19 @@ public class Main {
     private static void TwoDimensionalArraysCompare() {
         System.out.println("\nСравнение двумерных массивов");
 
-        int[][] array1 = {
-                {1, 2, 3},
-                {4, 5, 6},
-                {7, 8, 9}
-        };
+        int[][] array1 =
+                {
+                    {1, 2, 3},
+                    {4, 5, 6},
+                    {7, 8, 9}
+                };
 
         int[][] array2 = new int[3][3];
         // Заполнение массива
+        Random random = new Random();
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                array2[i][j] = (new Random()).nextInt(10);
+                array2[i][j] = random.nextInt(10);
             }
         }
 
@@ -204,10 +207,10 @@ public class Main {
 
         System.out.println("Трехмерный прямоугольный массив : ");
 
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                for (int k = 0; k < 3; k++) {
-                    System.out.print(array[i][j][k] + " ");
+        for (int layer = 0; layer < 3; layer++) {
+            for (int row = 0; row < 3; row++) {
+                for (int column = 0; column < 3; column++) {
+                    System.out.print(array[layer][row][column] + " ");
                 }
                 System.out.println();
             }
@@ -236,6 +239,14 @@ public class Main {
                 }
                 System.out.println();
             }
+            System.out.println();
+        }
+
+        System.out.println("\nArray3D:");
+        for (int [][] array2D : array)
+        {
+            for (int[] array1D : array2D)
+                System.out.println(Arrays.toString(array1D));
             System.out.println();
         }
     }
@@ -361,7 +372,7 @@ public class Main {
 
     // Наполнение массива одинаковыми данными
     private static void ArrayFill() {
-        System.out.println("\nНаполнение массива одинаковыми данными");
+        System.out.println("\nНаполнение прямоугольного массива одинаковыми данными");
 
         int array[][] = new int[3][3];
 
@@ -369,6 +380,10 @@ public class Main {
         Arrays.fill(array[0], 20);
         Arrays.fill(array[1], 20);
         Arrays.fill(array[2], 20);
+
+        for (int i = 0; i < array.length; i++)
+            Arrays.fill(array[i], i);
+
 
         System.out.println("Двумерный квадратный массив : ");
         for (int[] subArray : array) {
@@ -384,8 +399,16 @@ public class Main {
         System.out.println("\nСортировка двухмерного массива методом QuickSort");
         int num[][] = {
                 {5, 4, 45, 12},
-                {7, 5, 8, 85}
+                {7, 15, 8, 85}
         };
+        for (int i = 0; i < num.length; i++) {
+            Arrays.sort(num[i]);
+        }
+        for (int i = 0; i < num.length; i++) {
+            System.out.println(Arrays.toString(num[i]));
+        }
+
+
 
         // Сюда запишем наш двухмерный массив
         int[] flat = new int[2 * 4];
@@ -403,11 +426,9 @@ public class Main {
 
         // Переписываем одномерный массив в двухмерный
         ctr = 0;
-        for (int row = 0; row < 2; row++) {
-            for (int col = 0; col < 4; col++) {
+        for (int row = 0; row < 2; row++)
+            for (int col = 0; col < 4; col++)
                 num[row][col] = flat[ctr++];
-            }
-        }
 
         System.out.println("Массив после сортировки : ");
 
@@ -428,7 +449,7 @@ public class Main {
 
         for (int i = 0; i < array.length; i++)
             for (int j = 0; j < array[i].length; j++)
-                array[i][j] = random.nextInt(100);
+                array[i][j] = random.nextInt(10);
 
         System.out.println("Двумерный квадратный массив со случайными элементами : ");
 
@@ -438,6 +459,29 @@ public class Main {
             }
             System.out.println();
         }
+
+        int n = 4;
+        int temp;
+        for (int i = 0; i < array.length-1; i++)
+        {
+            for (int row = 0; row < array.length-1-i; row++)
+                    if ((array[row][n] > array[row+1][n]) || ((array[row][n] == array[row+1][n]) && (array[row][n+1] > array[row+1][n+1])))
+                        for (int cols = 0; cols < array[row].length; cols++)
+                        {
+                            temp = array[row][cols];
+                            array[row][cols] = array[row+1][cols];
+                            array[row+1][cols] = temp;
+                        }
+        }
+        System.out.println("Отсортированный по "+ (n+1) + "-y столбцу двумерный квадратный массив со случайными элементами : ");
+
+        for (int subArray[] : array) {
+            for (int element : subArray) {
+                System.out.print(element + "\t");
+            }
+            System.out.println();
+        }
+
 
     }
 
@@ -453,7 +497,7 @@ public class Main {
                     String AutorName = "Автор " + counter;
                     String BookName = "Название " + counter * 2;
 
-                    library[i][j][k] = new String("Book title (Autor)");
+                    library[i][j][k] = new String("Book " + BookName + "("+AutorName+")");
                     ++counter;
                 }
             }
@@ -469,12 +513,33 @@ public class Main {
         }
     }
 
+    private static void StringSpit()
+    {
+        String str = "word1.word2.word3.word4. word5";
+        System.out.println(str.substring(0, str.length()/2));   // от начала до середины
+        System.out.println(str.substring(str.length()/2));      // от начала до середины
+
+        if (str.contains(" "))
+        {
+            String[] words = str.split(" ");
+            System.out.println("Split for sentences: " + Arrays.toString(words));
+        }
+        else
+            System.out.println("Предложение не содержит пробелов!");
+
+        System.out.println(str.charAt(0));  // Получем один символ из строки
+        // System.out.println(str[0]);      // Так символ из строки выделять нельзя
+
+        char[] chars = new char[100];
+        str.getChars(0,10, chars, 0);
+        System.out.println(chars[0]);       // А так после преобразования можно
+    }
+
     // Сравнение строк. Пример 1
     private static void StringCompare_1() {
         System.out.println("\nСравнение строк. Пример 1.");
         String s1 = "str";
         String s2 = "str";
-
         // Сравниваем ссылки
         System.out.println("Объекты s1 и s2 в памяти одинаковые - " + (s1 == s2)); // true
         // Сравниваем строковое значение
@@ -491,7 +556,7 @@ public class Main {
         // Сравниваем ссылки
         System.out.println("Объекты s1 и s2 в памяти одинаковые - " + (s1 == s2)); // false
         // Сравниваем строковое значение
-        System.out.println("Символьный массив идентичен - " + s1.equals(s2)); // true or false
+        System.out.println("Символьный массив идентичен - " + s1.toLowerCase().equals(s2.toLowerCase())); // true or false
     }
 
     // Типовая задача из домашнего задания. Пример 1
