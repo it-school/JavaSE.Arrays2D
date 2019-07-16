@@ -28,11 +28,65 @@ public class Main {
 
 //        StringCompare_1();
 //        StringCompare_2();
-        StringExample();
+//        StringExample();
 
+        LessonWork4();
         // Homework_Example_1();
         // Homework_Example_2();
     }
+
+    private static void LessonWork4() {
+        /*Задан Двумерный массив вещественных чисел. Найти:
+        а) максимальную сумму абсолютных значений
+        элементов по строкам и номер строки с такой суммой;
+        б) максимальную сумму абсолютных значений
+        элементов по столбцам и номер столбца с такой суммой.*/
+        final int ROWS = 4, COLUMNS = 5;
+        double[][] array = new double[ROWS][COLUMNS];
+
+        Random r = new Random();
+        for (int row = 0; row < ROWS; row++)
+            for (int cols = 0; cols < COLUMNS; cols++)
+                array[row][cols] = 50 - r.nextDouble() * 100;
+
+        for (double[] a : array)
+            System.out.println(Arrays.toString(a));
+
+        double[] sumsRows = new double[ROWS];
+
+        for (int row = 0; row < ROWS; row++)
+            for (int cols = 0; cols < COLUMNS; cols++)
+                sumsRows[row] += Math.abs(array[row][cols]);
+
+        System.out.println(Arrays.toString(sumsRows));
+
+        int indMax = 0;
+        for (int i = 0; i < sumsRows.length; i++) {
+            if (sumsRows[i] > sumsRows[indMax])
+                indMax = i;
+        }
+        System.out.println("Max in Rows= " + sumsRows[indMax] + ", at: " + indMax);
+
+
+        System.out.println();
+        double[] sumsCols = new double[COLUMNS];
+
+        for (int cols = 0; cols < COLUMNS; cols++)
+            for (int row = 0; row < ROWS; row++)
+                sumsCols[cols] += Math.abs(array[row][cols]);
+
+
+        System.out.println(Arrays.toString(sumsCols));
+
+        int indMaxcols = 0;
+        for (int i = 0; i < sumsCols.length; i++) {
+            if (sumsCols[i] > sumsCols[indMaxcols])
+                indMaxcols = i;
+        }
+        System.out.println("Max in Cols= " + sumsCols[indMaxcols] + ", at: " + indMaxcols);
+    }
+
+
 
     private static Scanner scanner = new Scanner(System.in);
 
