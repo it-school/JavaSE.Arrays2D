@@ -6,31 +6,32 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        TwoDimensionalArray_1();
-        TwoDimensionalArray_2();
-        TwoDimensionalArray_3();
-        TwoDimensionalArraysCompare();
+//        TwoDimensionalArray_1();
+//        TwoDimensionalArray_2();
+//        TwoDimensionalArray_3();
+//        TwoDimensionalArraysCompare();
 
-        ThreeDimensionalArray_1();
-        ThreeDimensionalArray_2();
+//        ThreeDimensionalArray_1();
+//        ThreeDimensionalArray_2();
 
-        FourDimensionalArray_1();
-        FourDimensionalArray_2();
+//        FourDimensionalArray_1();
+//        FourDimensionalArray_2();
 
-        JaggedArray_1();
-        JaggedArray_2();
+//        JaggedArray_1();
+//        JaggedArray_2();
 
-        ArrayFill();
-        RandomArray();
-        QuickSort();
+//        ArrayFill();
+//        RandomArray();
+//        QuickSort();
 
-        LibraryExample();
+//        LibraryExample();
 
-        StringCompare_1();
-        StringCompare_2();
+//        StringCompare_1();
+//        StringCompare_2();
+        StringExample();
 
-        Homework_Example_1();
-        Homework_Example_2();
+        // Homework_Example_1();
+        // Homework_Example_2();
     }
 
     private static Scanner scanner = new Scanner(System.in);
@@ -84,7 +85,7 @@ public class Main {
         // Выводим массив на экран
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                System.out.print(array[i][j] + " ");
+                System.out.print(array[i][j] + "\t");
             }
             System.out.println();
         }
@@ -101,8 +102,8 @@ public class Main {
         };
 
         System.out.println("Двумерный прямоугольный массив : ");
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 4; j++) {
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array[i].length; j++) {
                 System.out.print(array[i][j] + "\t");
             }
             System.out.println();
@@ -142,9 +143,9 @@ public class Main {
 
 
         System.out.println("Клонируем содержимое одного массива:");
-        for(int r = 0; r < array1.length; r++)
-            for(int c = 0; c < array1[r].length; c++)
-                array1[r][c] = array2[r][c];
+        for (int row = 0; row < array1.length; row++)
+            for (int column = 0; column < array1[row].length; column++)
+                array1[row][column] = array2[row][column];
 
         System.out.println("\nArray1:");
         for (int [] a : array1)
@@ -363,12 +364,11 @@ public class Main {
     private static void ArrayFill() {
         System.out.println("\nНаполнение массива одинаковыми данными");
 
-        int array[][] = new int[3][3];
+        int[][] array = new int[3][3];
 
         // Функция fill принимает одномерный массив
-        Arrays.fill(array[0], 20);
-        Arrays.fill(array[1], 20);
-        Arrays.fill(array[2], 20);
+        for (int i = 0; i < array.length; i++)
+            Arrays.fill(array[i], 20);
 
         System.out.println("Двумерный квадратный массив : ");
         for (int[] subArray : array) {
@@ -382,18 +382,28 @@ public class Main {
     // Сортировка QuickSort
     private static void QuickSort() {
         System.out.println("\nСортировка двухмерного массива методом QuickSort");
-        int num[][] = {
+        int[][] num = {
                 {5, 4, 45, 12},
                 {7, 5, 8, 85}
         };
 
+        for (int row = 0; row < 2; row++) {
+            for (int col = 0; col < 4; col++) {
+                System.out.print(num[row][col] + "\t");
+            }
+            System.out.println();
+        }
+
+        int rows = num.length;
+        int columns = num[0].length;
+
         // Сюда запишем наш двухмерный массив
-        int[] flat = new int[2 * 4];
+        int[] flat = new int[rows * columns];
 
         // Переписываем двухмерный массив в одномерный
         int ctr = 0;
-        for (int row = 0; row < 2; row++) {
-            for (int col = 0; col < 4; col++) {
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < columns; col++) {
                 flat[ctr++] = num[row][col];
             }
         }
@@ -403,16 +413,16 @@ public class Main {
 
         // Переписываем одномерный массив в двухмерный
         ctr = 0;
-        for (int row = 0; row < 2; row++) {
-            for (int col = 0; col < 4; col++) {
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < columns; col++) {
                 num[row][col] = flat[ctr++];
             }
         }
 
         System.out.println("Массив после сортировки : ");
 
-        for (int row = 0; row < 2; row++) {
-            for (int col = 0; col < 4; col++) {
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < columns; col++) {
                 System.out.print(num[row][col] + "\t");
             }
             System.out.println();
@@ -424,7 +434,7 @@ public class Main {
         System.out.println("\nЗаполнение массива случайными значениями");
 
         Random random = new Random();
-        int array[][] = new int[10][10];
+        int[][] array = new int[10][10];
 
         for (int i = 0; i < array.length; i++)
             for (int j = 0; j < array[i].length; j++)
@@ -432,7 +442,7 @@ public class Main {
 
         System.out.println("Двумерный квадратный массив со случайными элементами : ");
 
-        for (int subArray[] : array) {
+        for (int[] subArray : array) {
             for (int element : subArray) {
                 System.out.print(element + "\t");
             }
@@ -444,7 +454,7 @@ public class Main {
     // Пример с книжной библиотекой
     private static void LibraryExample() {
         System.out.println("\nПример с библиотекой");
-        String library[][][] = new String[2][2][2];
+        String[][][] library = new String[2][2][2];
 
         int counter = 1;
         for (int i = 0; i < library.length; i++) {
@@ -453,17 +463,17 @@ public class Main {
                     String AutorName = "Автор " + counter;
                     String BookName = "Название " + counter * 2;
 
-                    library[i][j][k] = new String("Book title (Autor)");
+                    library[i][j][k] = BookName + " (" + AutorName + ")";
                     ++counter;
                 }
             }
         }
 
-        for (int i = 0; i < library.length; i++) {
-            for (int j = 0; j < library[i].length; j++) {
-                for (int k = 0; k < library[i][j].length; k++) {
-                    System.out.println("Шкаф " + (i + 1) + "-ый " +
-                            " Полка " + (j + 1) + "-ая " + "Ячейка " + (k + 1) + "-ая. Книга: " + library[i][j][k]);
+        for (int bookCase = 0; bookCase < library.length; bookCase++) {
+            for (int shelf = 0; shelf < library[bookCase].length; shelf++) {
+                for (int book = 0; book < library[bookCase][shelf].length; book++) {
+                    System.out.println("Шкаф " + (bookCase + 1) + "-ый " +
+                            " Полка " + (shelf + 1) + "-ая " + "Ячейка " + (book + 1) + "-ая. Книга: " + library[bookCase][shelf][book]);
                 }
             }
         }
@@ -494,6 +504,25 @@ public class Main {
         System.out.println("Символьный массив идентичен - " + s1.equals(s2)); // true or false
     }
 
+    private static void StringExample() {
+        String login = "user     ";
+        String userLogin = " User ";
+
+        if (login.trim().toLowerCase().equals(userLogin.trim().toLowerCase()))
+            System.out.println("=");
+        else
+            System.out.println("!=");
+
+        System.out.printf(String.valueOf(userLogin.lastIndexOf(" ")));
+
+//        String concated = userLogin + login;
+        String concated = userLogin.concat(login);
+        System.out.println(concated);
+
+        System.out.println((userLogin += login));
+        System.out.println(login);
+    }
+
     // Типовая задача из домашнего задания. Пример 1
     private static void Homework_Example_1() {
         //В двухмерном массиве целых чисел заменить все элементы,
@@ -503,7 +532,7 @@ public class Main {
         System.out.println("\nТиповая задача из ДЗ. Пример 1");
 
         int N = 5;
-        int array[][] = new int[N][N];
+        int[][] array = new int[N][N];
 
         int average = 0;
 
@@ -545,7 +574,7 @@ public class Main {
         System.out.println("\nТиповая задача из ДЗ. Пример 2");
 
         int N = 10;
-        int matrix[][] = new int[N][N];
+        int[][] matrix = new int[N][N];
         int sum = 0;
         Random random = new Random();
 
