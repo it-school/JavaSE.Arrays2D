@@ -3,13 +3,15 @@ package itschool;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main {
     public static void main(String[] args) {
 //        TwoDimensionalArray_1();
 //        TwoDimensionalArray_2();
 //        TwoDimensionalArray_3();
-//        TwoDimensionalArraysCompare();
+//       TwoDimensionalArraysCompare();
 
 //        ThreeDimensionalArray_1();
 //        ThreeDimensionalArray_2();
@@ -23,16 +25,85 @@ public class Main {
 //        ArrayFill();
 //        RandomArray();
 //        QuickSort();
-
+//          ArrayClone();
 //        LibraryExample();
 
 //        StringCompare_1();
 //        StringCompare_2();
-//        StringExample();
-
-        LessonWork4();
+        //StringExample();
+        LessonWork1();
+        //LessonWork4();
         // Homework_Example_1();
         // Homework_Example_2();
+    }
+
+    private static void LessonWork1() {
+        final int ROWS = 5, COLUMNS = 5;
+        double[][] array = new double[ROWS][COLUMNS];
+
+        Random r = new Random();
+        for (int row = 0; row < ROWS; row++)
+            for (int cols = 0; cols < COLUMNS; cols++)
+                array[row][cols] = 50 - r.nextDouble() * 100;
+
+        printArray(array);
+
+        int indMaxRow = 0;
+        int indMaxCol = 0;
+        for (int row = 0; row < array.length; row++) {
+            for (int col = 0; col < array[row].length; col++) {
+                if (array[row][col] > array[indMaxRow][indMaxCol]) {
+                    indMaxRow = row;
+                    indMaxCol = col;
+                }
+            }
+        }
+
+        System.out.println("[" + indMaxRow + "][" + indMaxCol + "] = " + array[indMaxRow][indMaxCol]);
+
+        for (int row = 0; row < array.length; row++) {
+            for (int col = 0; col < array[row].length; col++) {
+                if (col < row) {
+                    array[row][col] = 0;
+                }
+            }
+        }
+        printArray(array);
+
+        for (int row = 0; row < array.length; row++) {
+            for (int col = row + 1; col < array[row].length; col++) {
+                double temp = array[row][col];
+                array[row][col] = array[col][row];
+                array[col][row] = temp;
+            }
+        }
+        printArray(array);
+
+    }
+
+    private static void ArrayClone() {
+        final int ROWS = 5, COLUMNS = 5;
+        double[][] array = new double[ROWS][COLUMNS];
+
+        Random r = new Random();
+        for (int row = 0; row < ROWS; row++)
+            for (int cols = 0; cols < COLUMNS; cols++)
+                array[row][cols] = 50 - r.nextDouble() * 100;
+
+        printArray(array);
+        double[][] clone = array.clone();
+        printArray(clone);
+
+    }
+
+    private static void printArray(double[][] array) {
+        System.out.println();
+        for (double[] row : array) {
+            for (double value : row) {
+                System.out.print(String.format("%6.1f", value));
+            }
+            System.out.println('\n');
+        }
     }
 
     private static void LessonWork4() {
@@ -85,7 +156,6 @@ public class Main {
         }
         System.out.println("Max in Cols= " + sumsCols[indMaxcols] + ", at: " + indMaxcols);
     }
-
 
 
     private static Scanner scanner = new Scanner(System.in);
@@ -183,11 +253,11 @@ public class Main {
         }
 
         System.out.println("\nArray1:");
-        for (int [] a : array1)
+        for (int[] a : array1)
             System.out.println(Arrays.toString(a));
 
         System.out.println("\nArray2:");
-        for (int [] a : array2)
+        for (int[] a : array2)
             System.out.println(Arrays.toString(a));
 
         if (Arrays.equals(array1, array2))
@@ -202,11 +272,11 @@ public class Main {
                 array1[row][column] = array2[row][column];
 
         System.out.println("\nArray1:");
-        for (int [] a : array1)
+        for (int[] a : array1)
             System.out.println(Arrays.toString(a));
 
         System.out.println("\nArray2:");
-        for (int [] a : array2)
+        for (int[] a : array2)
             System.out.println(Arrays.toString(a));
 
         System.out.println("\nПри обычном сравнении через equals двумерный массив - это экземпляр Object[], а не int[][]");
@@ -559,8 +629,8 @@ public class Main {
     }
 
     private static void StringExample() {
-        String login = "user     ";
-        String userLogin = " User ";
+        String login = "user ";
+        String userLogin = " User "; // email@gmail.com  e.mail@gmail.com  EMA.IL @gmail.com
 
         if (login.trim().toLowerCase().equals(userLogin.trim().toLowerCase()))
             System.out.println("=");
@@ -575,6 +645,40 @@ public class Main {
 
         System.out.println((userLogin += login));
         System.out.println(login);
+
+        String email = "it-school@gmail.com";
+        System.out.println(isCorrectEmail(email));
+        String fakeEmail = "it-school@gmail.co.uk";
+        System.out.println(isCorrectEmail(fakeEmail));
+
+        String text = "Егор Алла Александр";
+        Pattern pattern = Pattern.compile("А.+а");
+        Matcher matcher = pattern.matcher(text);
+        while (matcher.find()) {
+            System.out.println(text.substring(matcher.start(), matcher.end()));
+        }
+
+    }
+
+    /**
+     * Проверяем корректность адреса электронной почты
+     *
+     * @param email - адрес, который проверяем
+     * @return true - если корректный, false - если некорректный
+     */
+    public static boolean isCorrectEmail(String email) {
+        if (!email.isEmpty()) {
+            int posAt = email.indexOf("@");
+            if (posAt > 0 && posAt < email.length() - 4) {
+                if (email.lastIndexOf("@") == posAt) {
+                    System.out.println(email);
+                    System.out.println(email.lastIndexOf("."));
+                    System.out.println(email.length());
+                    return email.lastIndexOf(".") <= email.length() - 3;
+                }
+            }
+        }
+        return false;
     }
 
     // Типовая задача из домашнего задания. Пример 1
